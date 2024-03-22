@@ -1,13 +1,27 @@
 package com.ssegning.math.number.impl;
 
+import com.google.inject.Guice;
+import com.google.inject.Inject;
+import com.ssegning.math.number.operation.CheckPerfect;
+import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigInteger;
 
-import static org.junit.jupiter.api.Assertions.*;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.junit.jupiter.api.Assertions.assertTrue;
 
+@Slf4j
 class CheckPerfectImplTest {
-    private final CheckPerfectImpl checkPerfect = new CheckPerfectImpl(new CalculateDividersImpl(ExecutorImpl.INSTANCE));
+
+    @Inject
+    CheckPerfect checkPerfect;
+
+    @BeforeEach
+    public void setUp() {
+        Guice.createInjector(new AppModule()).injectMembers(this);
+    }
 
     @Test
     void apply_6() {

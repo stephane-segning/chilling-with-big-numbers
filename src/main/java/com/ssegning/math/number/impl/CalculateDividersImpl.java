@@ -1,5 +1,6 @@
 package com.ssegning.math.number.impl;
 
+import com.google.inject.Inject;
 import com.ssegning.math.number.operation.CalculateDividers;
 import com.ssegning.math.number.operation.OperationSupply;
 import lombok.RequiredArgsConstructor;
@@ -14,7 +15,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Slf4j
-@RequiredArgsConstructor
+@RequiredArgsConstructor(onConstructor_ = @Inject)
 public class CalculateDividersImpl implements CalculateDividers {
     private final OperationSupply operationSupply;
 

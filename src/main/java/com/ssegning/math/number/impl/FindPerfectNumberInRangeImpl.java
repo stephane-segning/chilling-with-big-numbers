@@ -1,5 +1,6 @@
 package com.ssegning.math.number.impl;
 
+import com.google.inject.Inject;
 import com.ssegning.math.number.model.Range;
 import com.ssegning.math.number.operation.CheckPerfect;
 import com.ssegning.math.number.operation.FindPerfectNumberInRange;
@@ -14,7 +15,7 @@ import java.util.stream.Collectors;
 import java.util.stream.Stream;
 
 @Slf4j
-@RequiredArgsConstructor
+@RequiredArgsConstructor(onConstructor_ = @Inject)
 public class FindPerfectNumberInRangeImpl implements FindPerfectNumberInRange {
     private final CheckPerfect checkPerfect;
     private final OperationSupply operationSupply;

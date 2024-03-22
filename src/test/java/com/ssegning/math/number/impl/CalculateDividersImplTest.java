@@ -1,16 +1,24 @@
 package com.ssegning.math.number.impl;
 
+import com.google.inject.Guice;
+import com.google.inject.Inject;
 import com.ssegning.math.number.operation.CalculateDividers;
 import lombok.extern.slf4j.Slf4j;
+import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
 import java.math.BigInteger;
-import java.util.concurrent.Executors;
 
 @Slf4j
 class CalculateDividersImplTest {
 
-    CalculateDividers calculateDividers = new CalculateDividersImpl(ExecutorImpl.INSTANCE);
+    @Inject
+    CalculateDividers calculateDividers;
+
+    @BeforeEach
+    public void setUp() {
+        Guice.createInjector(new AppModule()).injectMembers(this);
+    }
 
     @Test
     void apply_10() {

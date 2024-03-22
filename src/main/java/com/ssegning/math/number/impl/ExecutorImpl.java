@@ -1,9 +1,8 @@
 package com.ssegning.math.number.impl;
 
+import com.google.inject.Singleton;
 import com.ssegning.math.number.operation.OperationSupply;
-import lombok.AccessLevel;
 import lombok.Getter;
-import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 
 import java.util.concurrent.*;
@@ -11,11 +10,11 @@ import java.util.function.Function;
 
 @Slf4j
 @Getter
-@RequiredArgsConstructor(access = AccessLevel.PRIVATE)
+@Singleton
 public class ExecutorImpl implements OperationSupply {
-    public static final ExecutorImpl INSTANCE;
+    private final ExecutorService executor;
 
-    static {
+    {
         var rpe = new ThreadPoolExecutor(0, Integer.MAX_VALUE,
                 60L, TimeUnit.SECONDS,
                 new SynchronousQueue<>());
@@ -29,10 +28,8 @@ public class ExecutorImpl implements OperationSupply {
             }
         });
 
-        INSTANCE = new ExecutorImpl(rpe);
+        this.executor = rpe;
     }
-
-    private final ExecutorService executor;
 
     public <T, R> Function<T, CompletableFuture<R>> submit(Function<T, R> fn) {
         return t -> CompletableFuture.supplyAsync(() -> fn.apply(t), executor);
